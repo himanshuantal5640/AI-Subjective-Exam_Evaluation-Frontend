@@ -20,7 +20,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import AdminDashboard from "../pages/admin/Dashboard";
 import Users from "../pages/admin/Users";
 import AuditLogs from "../pages/admin/AuditLogs";
-import AdminProfile from "../pages/admin/Profile"
+import AdminProfile from "../pages/admin/Profile";
 
 const AppRoutes = () => {
   return (
@@ -49,13 +49,13 @@ const AppRoutes = () => {
           </Route>
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-  <Route element={<AdminLayout />}>
-    <Route path="/admin/dashboard" element={<AdminDashboard />} />
-    <Route path="/admin/users" element={<Users />} />
-    <Route path="/admin/audit-logs" element={<AuditLogs />} />
-    <Route path="/admin/profile" element={<AdminProfile />} />
-  </Route>
-</Route>
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/audit-logs" element={<AuditLogs />} />
+            <Route path="/admin/profile" element={<AdminProfile />} />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
