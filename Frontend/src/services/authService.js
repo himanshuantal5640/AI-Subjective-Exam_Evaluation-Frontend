@@ -14,3 +14,6 @@ export const getProfile = () =>
 
 export const logoutUser = () =>
   api.post("/auth/logout");
+
+export const resendOTP = (data) =>
+  api.post("/auth/resend-otp", data);
