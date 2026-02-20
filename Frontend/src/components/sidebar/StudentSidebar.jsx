@@ -8,6 +8,7 @@ const StudentSidebar = () => {
 
       <nav className="flex flex-col gap-4">
         <Link to="/student/dashboard">Dashboard</Link>
+        <Link to="/student/exams">Exams</Link>
         <Link to="/student/results">Results</Link>
         <Link to="/student/profile">Profile</Link>
       </nav>

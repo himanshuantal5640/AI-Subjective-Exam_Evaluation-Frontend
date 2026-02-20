@@ -58,26 +58,35 @@ const VerifyOTP = () => {
     setError("");
 
     try {
+      // Verify OTP
       await verifyOTP({ email, otp: finalOtp });
-      navigate("/login");
+
+      // Auto login after verification
+      await loginUser({ email, password: location.state?.password });
+
+      const profile = await getProfile();
+      setUser(profile.data);
+
+      if (profile.data.role === "student") {
+        navigate("/student/dashboard");
+      } else if (profile.data.role === "teacher") {
+        navigate("/teacher/dashboard");
+      } else if (profile.data.role === "admin") {
+        navigate("/admin/dashboard");
+      }
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Verification failed"
-      );
+      setError(err.response?.data?.message || "Verification failed");
     } finally {
       setLoading(false);
     }
   };
-
   const handleResend = async () => {
     try {
       await resendOTP({ email });
       setTimer(60);
       setError("");
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Resend failed"
-      );
+      setError(err.response?.data?.message || "Resend failed");
     }
   };
 
@@ -87,9 +96,7 @@ const VerifyOTP = () => {
         onSubmit={handleSubmit}
         className="bg-[var(--card)] shadow-xl rounded-xl p-8 w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          Verify OTP
-        </h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Verify OTP</h2>
 
         <p className="text-sm text-gray-500 text-center mb-6">
           OTP sent to {email}
@@ -112,9 +119,7 @@ const VerifyOTP = () => {
         </div>
 
         {error && (
-          <p className="text-red-500 text-sm mb-4 text-center">
-            {error}
-          </p>
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
         )}
 
         <button

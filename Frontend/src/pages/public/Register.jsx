@@ -18,7 +18,12 @@ const Register = () => {
 
     try {
       await registerUser(form);
-      navigate("/verify-otp", { state: { email: form.email } });
+      navigate("/verify-otp", {
+        state: {
+          email: form.email,
+          password: form.password,
+        },
+      });
     } catch (error) {
       console.log(error.response?.data);
       alert(error.response?.data?.message || "Registration failed");

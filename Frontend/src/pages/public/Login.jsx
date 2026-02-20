@@ -10,12 +10,27 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+
+  try {
     await loginUser(form);
+
     const profile = await getProfile();
     setUser(profile.data);
-    navigate("/");
-  };
+
+    // Redirect based on role
+    if (profile.data.role === "student") {
+      navigate("/student/dashboard");
+    } else if (profile.data.role === "teacher") {
+      navigate("/teacher/dashboard");
+    } else if (profile.data.role === "admin") {
+      navigate("/admin/dashboard");
+    }
+
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   return (
     <div className="flex items-center justify-center min-h-[80vh] px-4">
