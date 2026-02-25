@@ -1,1 +1,18 @@
+/* @import "tailwindcss";
+
+@theme {
+  --color-bg-dark: #010308;
+  --color-cyan: #00d4ff;
+  --color-violet: #c040ff;
+  --color-green: #00e887;
+  --color-gold: #ffb830;
+} */
+
 @import "tailwindcss";
+
+/* enable dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  @apply transition-colors duration-300;
+}

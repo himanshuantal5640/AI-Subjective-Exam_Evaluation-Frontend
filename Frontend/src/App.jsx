@@ -1,16 +1,11 @@
-import React from 'react'
-import AppRoutes from './app/AppRoutes'
+import React from "react";
+import LandingPage from "./pages/LandingPage";
 import { ThemeProvider } from "./context/ThemeContext";
-import { AuthProvider } from "./context/AuthContext";
 
-function App() {
+export default function App() {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
+      <LandingPage />
     </ThemeProvider>
   );
 }
-
-export default App;
