@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function InputField({
   type,
-  name,            // ✅ ADD THIS
+  name,           
   placeholder,
   value,
   onChange,

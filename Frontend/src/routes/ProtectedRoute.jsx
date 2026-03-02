@@ -1,17 +1,31 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 const ProtectedRoute = ({ children, allowedRole }) => {
+  const location = useLocation();
   const role = localStorage.getItem("role");
 
-  // Not logged in
+ 
   if (!role) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Role mismatch
+
   if (allowedRole && role !== allowedRole) {
-    return <Navigate to="/" replace />;
+
+    if (role === "teacher") {
+      return <Navigate to="/teacher/dashboard" replace />;
+    }
+
+    if (role === "student") {
+      return <Navigate to="/student/dashboard" replace />;
+    }
+
+    if (role === "admin") {
+      return <Navigate to="/admin" replace />;
+    }
+
+    return <Navigate to="/login" replace />;
   }
 
   return children;
