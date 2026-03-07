@@ -23,6 +23,7 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentExams from "./pages/student/StudentExams";
 import StudentProfile from "./pages/student/StudentProfile";
 import StudentResults from "./pages/student/StudentResults";
+import TakeExam from "./pages/student/TakeExam";
 
 // Teacher
 import TeacherLayout from "./layouts/TeacherLayout";
@@ -71,6 +72,7 @@ function App() {
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<StudentDashboard />} />
             <Route path="exams" element={<StudentExams />} />
+            <Route path="exam/:examId/take" element={<TakeExam />} />
             <Route path="profile" element={<StudentProfile />} />
             <Route path="results" element={<StudentResults />} />
           </Route>

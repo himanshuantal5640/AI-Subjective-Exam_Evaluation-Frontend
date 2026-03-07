@@ -18,8 +18,11 @@ export const addQuestion = (data) =>
 export const getExamSubmissions = (examId) =>
   api.get(`/review/exam/${examId}`);
 
-export const overrideScore = (answerId, score) =>
-  api.put(`/review/override/${answerId}`, { score });
+export const overrideScore = (answerId, score, comment) =>
+  api.put(`/review/override/${answerId}`, { teacherFinalScore: score, teacherComment: comment });
+
+export const evaluateWithAI = (answerId) =>
+  api.post(`/review/evaluate-ai/${answerId}`);
 
 // ANALYTICS
 export const getTeacherAnalytics = (examId) =>

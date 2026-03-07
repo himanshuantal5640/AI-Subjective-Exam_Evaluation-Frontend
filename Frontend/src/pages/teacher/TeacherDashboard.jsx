@@ -11,29 +11,36 @@ export default function TeacherDashboard() {
     totalStudents: 0,
   });
 
-  
   const loadData = async () => {
     try {
       const examRes = await api.get("/exams/my-exams");
-      const studentRes = await api.get("/users/students");
-      
       const exams = examRes.data;
-      
+
+      // We don't have a /users/students route defined in the backend typically, 
+      // but let's safely handle it if it fails so the dashboard still loads.
+      let studentCount = 0;
+      try {
+        const studentRes = await api.get("/users/students");
+        studentCount = studentRes.data.length;
+      } catch (e) {
+        console.warn("Could not fetch students", e.message);
+      }
+
       setStats({
         totalExams: exams.length,
         activeExams: exams.filter(e => e.status === "active").length,
         completedExams: exams.filter(e => e.status === "completed").length,
-        totalStudents: studentRes.data.length,
+        totalStudents: studentCount,
       });
-      
+
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     loadData();
   }, []);
-  
   const Card = ({ title, value, color }) => (
     <div
       className={`
@@ -55,7 +62,7 @@ export default function TeacherDashboard() {
 
   return (
     <div className="space-y-8">
-       {/* Extra Section (Optional Visual Block) */}
+      {/* Extra Section (Optional Visual Block) */}
       <div className="
       bg-gradient-to-r from-green-500 to-emerald-600
       rounded-2xl p-8 text-white shadow-lg">
@@ -110,7 +117,7 @@ export default function TeacherDashboard() {
 
       </div>
 
-     
+
 
     </div>
   );

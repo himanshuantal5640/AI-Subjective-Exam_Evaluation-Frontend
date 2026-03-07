@@ -1,10 +1,12 @@
 
 
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAvailableExams } from "../../services/studentService";
 
 export default function StudentExams() {
   const [exams, setExams] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchExams();
@@ -45,7 +47,10 @@ export default function StudentExams() {
                     {exam.subject} • {exam.totalMarks} Marks
                   </p>
                 </div>
-                <button className="px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-medium transition cursor-pointer">
+                <button
+                  onClick={() => navigate(`/student/exam/${exam._id}/take`)}
+                  className="px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-medium transition cursor-pointer"
+                >
                   Start Exam
                 </button>
               </div>

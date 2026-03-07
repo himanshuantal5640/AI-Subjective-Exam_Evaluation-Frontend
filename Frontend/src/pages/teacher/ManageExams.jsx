@@ -32,7 +32,14 @@ export default function ManageExams() {
               <td className="p-4">{exam.title}</td>
               <td>{exam.status}</td>
               <td>{exam.totalMarks}</td>
-              <td className="py-4 pr-4 text-right">
+              <td className="py-4 pr-4 text-right space-x-2">
+                <button
+                  type="button"
+                  onClick={() => navigate(`/teacher/review/${exam._id}`)}
+                  className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-sm transition"
+                >
+                  Review Submissions
+                </button>
                 <button
                   type="button"
                   onClick={() => navigate(`/teacher/exam/${exam._id}/questions`)}
