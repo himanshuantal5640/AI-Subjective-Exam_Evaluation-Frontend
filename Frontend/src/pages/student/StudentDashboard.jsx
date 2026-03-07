@@ -17,20 +17,25 @@ export default function StudentDashboard() {
     try {
       const { data } = await API.get("/answers/my-results");
 
-      const totalExams = data.length;
-      let totalScore = 0;
+      const totalResults = data.length;
+      let totalPercentage = 0;
       let passedExams = 0;
 
       data.forEach(r => {
         const score = r.aiFinalScore || r.teacherFinalScore || r.score || 0;
-        totalScore += score;
-        if (score >= 40) passedExams++; // Assuming 40 is pass mark
+        const totalMarks = r.questionId?.totalMarks || r.examId?.totalMarks || 100;
+
+        // Calculate percentage for this exam
+        const percentage = (score / totalMarks) * 100;
+        totalPercentage += percentage;
+
+        if (percentage >= 40) passedExams++; // Assuming 40% is pass mark
       });
 
       setStats({
-        score: totalExams > 0 ? Math.round(totalScore / totalExams) : 0,
-        exams: totalExams,
-        passRate: totalExams > 0 ? Math.round((passedExams / totalExams) * 100) : 0,
+        score: totalResults > 0 ? Math.round(totalPercentage / totalResults) : 0,
+        exams: totalResults,
+        passRate: totalResults > 0 ? Math.round((passedExams / totalResults) * 100) : 0,
       });
     } catch (err) {
       console.log(err);

@@ -7,6 +7,9 @@ export const createExam = (data) =>
 export const getMyExams = () =>
   api.get("/exams/my-exams");
 
+export const toggleExamStatus = (examId) =>
+  api.put(`/exams/${examId}/toggle-status`);
+
 // QUESTIONS
 export const getQuestions = (examId) =>
   api.get(`/questions/${examId}`);
