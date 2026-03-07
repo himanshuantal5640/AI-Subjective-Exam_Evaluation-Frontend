@@ -40,11 +40,11 @@ export default function TeacherSidebar({ open, setOpen }) {
             Dashboard
           </NavLink>
 
-          <NavLink to="/teacher/create-exam" className={linkStyle}>
+          <NavLink to="/teacher/create" className={linkStyle}>
             Create Exam
           </NavLink>
 
-          <NavLink to="/teacher/manage-exams" className={linkStyle}>
+          <NavLink to="/teacher/manage" className={linkStyle}>
             Manage Exams
           </NavLink>
 

@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import API from "../../services/api";
+import { getAvailableExams } from "../../services/studentService";
 
 export default function StudentExams() {
   const [exams, setExams] = useState([]);
@@ -12,7 +12,7 @@ export default function StudentExams() {
 
   const fetchExams = async () => {
     try {
-      const { data } = await API.get("/answers/my-results");
+      const { data } = await getAvailableExams();
       setExams(data);
     } catch (err) {
       console.log(err);
@@ -29,22 +29,29 @@ export default function StudentExams() {
         </h2>
 
         {exams.length === 0 ? (
-  <div className="text-center py-10 text-gray-500 dark:text-gray-400">
-    No exams taken yet 🚀
-  </div>
-) : (
-  exams.map((exam) => (
-    <div
-      key={exam._id}
-      className="flex justify-between py-3 border-b dark:border-white/10"
-    >
-      <span>{exam.examId}</span>
-      <span className="font-semibold text-cyan-500">
-        {exam.score}
-      </span>
-    </div>
-  ))
-)}
+          <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+            No exams taken yet 🚀
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {exams.map((exam) => (
+              <div
+                key={exam._id}
+                className="flex items-center justify-between p-4 rounded-xl border border-gray-200 dark:border-white/10 dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 transition"
+              >
+                <div>
+                  <h3 className="font-semibold text-lg">{exam.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {exam.subject} • {exam.totalMarks} Marks
+                  </p>
+                </div>
+                <button className="px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-medium transition cursor-pointer">
+                  Start Exam
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -17,10 +17,20 @@ export default function StudentDashboard() {
     try {
       const { data } = await API.get("/answers/my-results");
 
+      const totalExams = data.length;
+      let totalScore = 0;
+      let passedExams = 0;
+
+      data.forEach(r => {
+        const score = r.aiFinalScore || r.teacherFinalScore || r.score || 0;
+        totalScore += score;
+        if (score >= 40) passedExams++; // Assuming 40 is pass mark
+      });
+
       setStats({
-        score: 87,
-        exams: data.length,
-        passRate: 91,
+        score: totalExams > 0 ? Math.round(totalScore / totalExams) : 0,
+        exams: totalExams,
+        passRate: totalExams > 0 ? Math.round((passedExams / totalExams) * 100) : 0,
       });
     } catch (err) {
       console.log(err);

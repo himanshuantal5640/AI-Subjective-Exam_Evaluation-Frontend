@@ -13,9 +13,9 @@ export default function StudentResults() {
       toast.error("Failed to load results");
     }
   };
-    useEffect(() => {
-        fetchResults();
-    }, []);
+  useEffect(() => {
+    fetchResults();
+  }, []);
 
 
   return (
@@ -23,22 +23,22 @@ export default function StudentResults() {
       <h2 className="text-xl font-semibold mb-6">My Results</h2>
 
       {results.length === 0 ? (
-  <div className="text-center py-10 text-gray-500 dark:text-gray-400">
-    No results available yet 📊
-  </div>
-) : (
-  results.map((r) => (
-    <div
-      key={r._id}
-      className="flex justify-between py-3 border-b dark:border-white/10"
-    >
-      <span>{r.examId}</span>
-      <span className="font-semibold text-purple-500">
-        {r.score}
-      </span>
-    </div>
-  ))
-)}
+        <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+          No results available yet 📊
+        </div>
+      ) : (
+        results.map((r) => (
+          <div
+            key={r._id}
+            className="flex justify-between py-3 border-b dark:border-white/10"
+          >
+            <span>{r.examId?.title || "Unknown Exam"}</span>
+            <span className="font-semibold text-purple-500">
+              Score: {r.aiFinalScore || r.teacherFinalScore || r.score || 0}
+            </span>
+          </div>
+        ))
+      )}
     </div>
   );
 }

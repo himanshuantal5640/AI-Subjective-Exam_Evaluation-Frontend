@@ -33,6 +33,7 @@ import TeacherStudents from "./pages/teacher/TeacherStudents";
 import TeacherProfile from "./pages/teacher/TeacherProfile";
 import ReviewAnswers from "./pages/teacher/ReviewAnswers";
 import TeacherAnalytics from "./pages/teacher/TeacherAnalytics";
+import ManageQuestions from "./pages/teacher/ManageQuestions";
 
 // Protected Route
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -89,6 +90,7 @@ function App() {
             <Route path="manage" element={<ManageExams />} />
             <Route path="students" element={<TeacherStudents />} />
             <Route path="profile" element={<TeacherProfile />} />
+            <Route path="exam/:examId/questions" element={<ManageQuestions />} />
             <Route path="review/:examId" element={<ReviewAnswers />} />
             <Route path="analytics/:examId" element={<TeacherAnalytics />} />
           </Route>
