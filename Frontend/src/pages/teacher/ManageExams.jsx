@@ -66,6 +66,13 @@ export default function ManageExams() {
                 </button>
                 <button
                   type="button"
+                  onClick={() => navigate(`/teacher/attendance/${exam._id}`)}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm transition"
+                >
+                  Attendance
+                </button>
+                <button
+                  type="button"
                   onClick={() => navigate(`/teacher/exam/${exam._id}/questions`)}
                   className="px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg text-sm transition"
                 >

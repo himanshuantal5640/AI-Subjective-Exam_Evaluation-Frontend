@@ -23,6 +23,7 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentExams from "./pages/student/StudentExams";
 import StudentProfile from "./pages/student/StudentProfile";
 import StudentResults from "./pages/student/StudentResults";
+import StudentAttendance from "./pages/student/StudentAttendance";
 import TakeExam from "./pages/student/TakeExam";
 
 // Teacher
@@ -35,6 +36,17 @@ import TeacherProfile from "./pages/teacher/TeacherProfile";
 import ReviewAnswers from "./pages/teacher/ReviewAnswers";
 import TeacherAnalytics from "./pages/teacher/TeacherAnalytics";
 import ManageQuestions from "./pages/teacher/ManageQuestions";
+import TeacherAttendance from "./pages/teacher/TeacherAttendance";
+
+// Admin
+import AdminLayout from "./layouts/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminTeachers from "./pages/admin/AdminTeachers";
+import AdminStudents from "./pages/admin/AdminStudents";
+import AdminExams from "./pages/admin/AdminExams";
+import AdminAddUser from "./pages/admin/AdminAddUser";
+import AdminLogs from "./pages/admin/AdminLogs";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 // Protected Route
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -75,6 +87,7 @@ function App() {
             <Route path="exam/:examId/take" element={<TakeExam />} />
             <Route path="profile" element={<StudentProfile />} />
             <Route path="results" element={<StudentResults />} />
+            <Route path="attendance" element={<StudentAttendance />} />
           </Route>
 
           {/* ================= TEACHER PORTAL ================= */}
@@ -94,7 +107,27 @@ function App() {
             <Route path="profile" element={<TeacherProfile />} />
             <Route path="exam/:examId/questions" element={<ManageQuestions />} />
             <Route path="review/:examId" element={<ReviewAnswers />} />
+            <Route path="attendance/:examId" element={<TeacherAttendance />} />
             <Route path="analytics/:examId" element={<TeacherAnalytics />} />
+          </Route>
+
+          {/* ================= ADMIN PORTAL ================= */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute allowedRole="admin">
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="teachers" element={<AdminTeachers />} />
+            <Route path="students" element={<AdminStudents />} />
+            <Route path="exams" element={<AdminExams />} />
+            <Route path="add-user" element={<AdminAddUser />} />
+            <Route path="logs" element={<AdminLogs />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
 
           {/* ================= FALLBACK ================= */}

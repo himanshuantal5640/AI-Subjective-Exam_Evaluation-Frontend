@@ -30,6 +30,11 @@ export default function StudentSidebar() {
           Results
         </NavLink>
 
+        <NavLink to="/student/attendance" className={linkClass}>
+          <BarChart size={18} />
+          Attendance
+        </NavLink>
+
         <NavLink to="/student/profile" className={linkClass}>
           <User size={18} />
           Profile

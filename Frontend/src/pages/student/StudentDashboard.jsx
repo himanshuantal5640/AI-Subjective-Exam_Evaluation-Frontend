@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import StatCard from "../../components/student/StatCard";
 import API from "../../services/api";
+import { getMyAttendance } from "../../services/studentService";
 
 export default function StudentDashboard() {
   const [stats, setStats] = useState({
     score: 0,
     exams: 0,
     passRate: 0,
+    attendanceRate: 0,
   });
 
   useEffect(() => {
@@ -32,10 +34,24 @@ export default function StudentDashboard() {
         if (percentage >= 40) passedExams++; // Assuming 40% is pass mark
       });
 
+      // Fetch Attendance
+      let attendancePercentage = 0;
+      try {
+        const attRes = await getMyAttendance();
+        const totalExams = attRes.data.length;
+        if (totalExams > 0) {
+          const presentCount = attRes.data.filter(a => a.status === "present").length;
+          attendancePercentage = Math.round((presentCount / totalExams) * 100);
+        }
+      } catch (e) {
+        console.error("Failed to load attendance", e);
+      }
+
       setStats({
         score: totalResults > 0 ? Math.round(totalPercentage / totalResults) : 0,
         exams: totalResults,
         passRate: totalResults > 0 ? Math.round((passedExams / totalResults) * 100) : 0,
+        attendanceRate: attendancePercentage
       });
     } catch (err) {
       console.log(err);
@@ -43,10 +59,11 @@ export default function StudentDashboard() {
   };
 
   return (
-    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <StatCard title="Overall Score" value={`${stats.score}%`} />
       <StatCard title="Exams Taken" value={stats.exams} />
       <StatCard title="Pass Rate" value={`${stats.passRate}%`} />
+      <StatCard title="Attendance" value={`${stats.attendanceRate}%`} />
     </div>
   );
 }

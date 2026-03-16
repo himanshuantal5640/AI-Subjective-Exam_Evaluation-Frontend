@@ -10,6 +10,13 @@ export const getMyExams = () =>
 export const toggleExamStatus = (examId) =>
   api.put(`/exams/${examId}/toggle-status`);
 
+// ATTENDANCE
+export const getExamAttendance = (examId) => 
+  api.get(`/attendance/exam/${examId}`);
+
+export const markAttendance = (examId, studentId, status) => 
+  api.post("/attendance/mark", { examId, studentId, status });
+
 // QUESTIONS
 export const getQuestions = (examId) =>
   api.get(`/questions/${examId}`);
