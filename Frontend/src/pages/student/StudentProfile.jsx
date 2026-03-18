@@ -131,12 +131,22 @@ export default function StudentProfile() {
       </div>
 
       {/* Email */}
-      <div className="mb-8">
+      <div className="mb-4">
         <label className="text-sm text-gray-500 dark:text-gray-400">
           Email
         </label>
         <p className="mt-2 text-gray-700 dark:text-gray-300">
           {user.email}
+        </p>
+      </div>
+
+      {/* Role */}
+      <div className="mb-8">
+        <label className="text-sm text-gray-500 dark:text-gray-400">
+          Account Role
+        </label>
+        <p className="mt-2 text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-widest text-xs">
+          {user.role || 'Student'}
         </p>
       </div>
 

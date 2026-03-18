@@ -48,10 +48,15 @@ export default function StudentExams() {
                   </p>
                 </div>
                 <button
-                  onClick={() => navigate(`/student/exam/${exam._id}/take`)}
-                  className="px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-medium transition cursor-pointer"
+                  onClick={() => !exam.isSubmitted && navigate(`/student/exam/${exam._id}/take`)}
+                  disabled={exam.isSubmitted}
+                  className={`px-5 py-2 rounded-lg font-medium transition ${
+                    exam.isSubmitted 
+                      ? "bg-gray-400 cursor-not-allowed text-gray-700" 
+                      : "bg-cyan-500 hover:bg-cyan-600 text-white cursor-pointer"
+                  }`}
                 >
-                  Start Exam
+                  {exam.isSubmitted ? "Already Taken" : "Start Exam"}
                 </button>
               </div>
             ))}
