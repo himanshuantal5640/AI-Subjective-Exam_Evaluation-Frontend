@@ -61,20 +61,6 @@ export default function Login() {
   return (
     <AuthCard title="Login">
 
-      <select
-        name="role"
-        value={form.role}
-        onChange={handleChange}
-        className="w-full mb-4 px-4 py-3 rounded-lg 
-        bg-gray-100 dark:bg-[#1a1a1a] 
-        border border-gray-300 dark:border-white/10 
-        focus:ring-2 focus:ring-cyan-500"
-      >
-        <option value="student">student</option>
-        <option value="teacher">teacher</option>
-        <option value="admin">admin</option>
-      </select>
-
       <InputField
         type="text"
         name="email"

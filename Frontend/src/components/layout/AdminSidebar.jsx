@@ -41,6 +41,7 @@ export default function AdminSidebar({ isSidebarOpen, setSidebarOpen }) {
     { name: "Dashboard", path: "/admin/dashboard", icon: "⊞" },
     { name: "All Teachers", path: "/admin/teachers", icon: "🎓", badge: { text: counts.teachers.toString(), type: "primary" } },
     { name: "All Students", path: "/admin/students", icon: "👥", badge: { text: counts.students.toString(), type: "indigo" } },
+    { name: "Manage Assignments", path: "/admin/assignments", icon: "🔗" },
     { name: "Add User", path: "/admin/add-user", icon: "➕" },
     { name: "All Exams", path: "/admin/exams", icon: "📋", badge: { text: counts.exams.toString(), type: "sky" } },
     { name: "Audit Logs", path: "/admin/logs", icon: "📜", badge: { text: "Live", type: "rose" } },

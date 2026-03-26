@@ -49,6 +49,8 @@ import AdminLogs from "./pages/admin/AdminLogs";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminProfile from './pages/admin/AdminProfile';
 
+import AdminAssignments from "./pages/admin/AdminAssignments";
+
 // Protected Route
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -129,6 +131,7 @@ function App() {
             <Route path="add-user" element={<AdminAddUser />} />
             <Route path="logs" element={<AdminLogs />} />
             <Route path="settings" element={<AdminSettings />} />
+            <Route path="assignments" element={<AdminAssignments />} />
             <Route path="profile" element={<AdminProfile />} />
           </Route>
 

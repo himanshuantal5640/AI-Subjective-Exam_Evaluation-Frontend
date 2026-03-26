@@ -29,97 +29,91 @@ export default function ManageExams() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-10 animate-in fade-in slide-in-from-top-4 duration-700">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className={`text-2xl font-bold ${darkMode ? 'text-green-400' : 'text-gray-900'}`}>Manage Examinations</h1>
-          <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>Monitor, update, and review all your exam instances.</p>
+          <h1 className={`text-3xl font-bold font-['Orbitron'] ${darkMode ? 'text-white' : 'text-gray-900'} tracking-tight`}>
+            Deployment Registry
+          </h1>
+          <p className={`text-sm font-['JetBrains_Mono'] ${darkMode ? 'text-emerald-500/40' : 'text-gray-500'} mt-2 uppercase tracking-widest`}>
+            Monitoring Active Assessment Nodes
+          </p>
         </div>
         <button 
           onClick={() => navigate('/teacher/create')}
-          className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-green-500/20 hover:scale-105 transition-all active:scale-95"
+          className="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-[20px] font-bold text-xs uppercase tracking-[2px] transition-all shadow-xl shadow-emerald-600/20 active:scale-95 font-['Orbitron']"
         >
-          <Plus size={18} /> Create New Exam
+          <Plus size={18} /> New Deployment
         </button>
       </div>
 
-      <div className={`${darkMode ? 'bg-[#07100a] border-green-500/10' : 'bg-white border-gray-200 shadow-sm'} rounded-2xl border overflow-hidden`}>
+      <div className={`${darkMode ? 'bg-[#08150f]/80 border-emerald-500/10 shadow-2xl' : 'bg-white border-gray-200 shadow-xl'} backdrop-blur-xl rounded-[32px] border overflow-hidden transition-all duration-500`}>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
-              <tr className={`${darkMode ? 'bg-[#0b1610] text-green-400 border-green-500/10' : 'bg-gray-50 text-gray-700 border-gray-100'} border-b`}>
-                <th className="p-5 text-left font-semibold text-sm uppercase tracking-wider">Exam Details</th>
-                <th className="p-5 text-left font-semibold text-sm uppercase tracking-wider text-center">Status</th>
-                <th className="p-5 text-left font-semibold text-sm uppercase tracking-wider text-center">Total Marks</th>
-                <th className="p-5 text-right font-semibold text-sm uppercase tracking-wider">Management Actions</th>
+              <tr className={`${darkMode ? 'bg-black/40 text-emerald-400 border-emerald-500/10' : 'bg-gray-50 text-gray-700 border-gray-100'} border-b font-['Orbitron']`}>
+                <th className="p-6 text-left text-[10px] font-black uppercase tracking-[3px]">Node Signature</th>
+                <th className="p-6 text-center text-[10px] font-black uppercase tracking-[3px]">Status</th>
+                <th className="p-6 text-center text-[10px] font-black uppercase tracking-[3px]">Deadline</th>
+                <th className="p-6 text-center text-[10px] font-black uppercase tracking-[3px]">Quota</th>
+                <th className="p-6 text-right text-[10px] font-black uppercase tracking-[3px]">Command</th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-100 dark:divide-green-500/10">
+            <tbody className="divide-y divide-gray-100 dark:divide-white/5 font-['JetBrains_Mono']">
               {exams.map(exam => (
-                <tr key={exam._id} className={`${darkMode ? 'text-gray-300 hover:bg-green-500/5' : 'text-gray-700 hover:bg-gray-50'} transition`}>
-                  <td className="p-5">
-                    <div className="font-bold text-lg">{exam.title}</div>
-                    <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'} mt-0.5`}>Subject: {exam.subject || 'General'}</div>
+                <tr key={exam._id} className={`${darkMode ? 'text-emerald-100/60 hover:bg-emerald-500/5' : 'text-gray-700 hover:bg-gray-50'} transition-all duration-300 group`}>
+                  <td className="p-6">
+                    <div className={`font-bold text-base ${darkMode ? 'text-white' : 'text-gray-900'} font-['Orbitron'] tracking-tight group-hover:text-emerald-500 transition-colors`}>{exam.title}</div>
+                    <div className={`text-[10px] ${darkMode ? 'text-gray-600' : 'text-gray-400'} mt-1 uppercase tracking-widest`}>ID: {exam._id.slice(-8)} • {exam.subject || 'GENERAL'}</div>
                   </td>
-                  <td className="p-5 text-center">
+                  <td className="p-6 text-center">
                     <button
                       onClick={() => handleToggleStatus(exam._id)}
-                      className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${
+                      className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all border ${
                         exam.status === "active"
-                          ? "bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20"
-                          : "bg-gray-500/10 text-gray-400 border-gray-500/20 hover:bg-gray-500/20"
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]"
+                          : "bg-gray-500/10 text-gray-400 border-gray-500/20"
                       }`}
                     >
-                      {exam.status === "active" ? <CheckCircle size={14} /> : <Clock size={14} />}
-                      {exam.status.toUpperCase()}
+                      <div className={`w-1.5 h-1.5 rounded-full ${exam.status === "active" ? 'bg-emerald-500 animate-pulse' : 'bg-gray-500'}`}></div>
+                      {exam.status}
                     </button>
                   </td>
-                  <td className="p-5 text-center">
-                    <span className={`px-3 py-1 rounded-[8px] border ${
-                      darkMode ? 'bg-white/5 border-white/5 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'
-                    } font-mono font-bold`}>
-                      {exam.totalMarks}
+                  <td className="p-6 text-center">
+                    <div className="flex flex-col items-center">
+                       <span className={`text-[11px] font-bold ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                         {exam.deadline ? new Date(exam.deadline).toLocaleDateString() : 'N/A'}
+                       </span>
+                       <span className={`text-[9px] ${darkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                         {exam.deadline ? new Date(exam.deadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                       </span>
+                    </div>
+                  </td>
+                  <td className="p-6 text-center">
+                    <span className={`px-3 py-1 rounded-lg border text-xs font-bold ${
+                      darkMode ? 'bg-black/20 border-white/5 text-emerald-400' : 'bg-gray-50 border-gray-200 text-gray-900'
+                    }`}>
+                      {exam.totalMarks} <span className="text-[8px] opacity-40">PTS</span>
                     </span>
                   </td>
-                  <td className="p-5">
-                    <div className="flex justify-end gap-2">
-                      <button
-                        title="Review Submissions"
-                        onClick={() => navigate(`/teacher/review/${exam._id}`)}
-                        className={`p-2.5 rounded-xl transition ${
-                          darkMode ? 'bg-purple-500/10 text-purple-400 hover:bg-purple-500 text-white' : 'bg-purple-50 text-purple-600 hover:bg-purple-600 hover:text-white'
-                        }`}
-                      >
-                        <Eye size={18} />
-                      </button>
-                      <button
-                        title="Analytics"
-                        onClick={() => navigate(`/teacher/analytics/${exam._id}`)}
-                        className={`p-2.5 rounded-xl transition ${
-                          darkMode ? 'bg-orange-500/10 text-orange-400 hover:bg-orange-500 text-white' : 'bg-orange-50 text-orange-600 hover:bg-orange-600 hover:text-white'
-                        }`}
-                      >
-                        <BarChart2 size={18} />
-                      </button>
-                      <button
-                        title="Attendance"
-                        onClick={() => navigate(`/teacher/attendance/${exam._id}`)}
-                        className={`p-2.5 rounded-xl transition ${
-                          darkMode ? 'bg-blue-500/10 text-blue-400 hover:bg-blue-500 text-white' : 'bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white'
-                        }`}
-                      >
-                        <Users size={18} />
-                      </button>
-                      <button
-                        title="Manage Questions"
-                        onClick={() => navigate(`/teacher/exam/${exam._id}/questions`)}
-                        className={`p-2.5 rounded-xl transition ${
-                          darkMode ? 'bg-green-500/10 text-green-400 hover:bg-green-500 text-white' : 'bg-green-50 text-green-600 hover:bg-green-600 hover:text-white'
-                        }`}
-                      >
-                        <Edit size={18} />
-                      </button>
+                  <td className="p-6">
+                    <div className="flex justify-end gap-3">
+                      {[
+                        { icon: <Eye size={16} />, title: "Review", path: `/teacher/review/${exam._id}`, color: "text-amber-400 bg-amber-400/10" },
+                        { icon: <BarChart2 size={16} />, title: "Stats", path: `/teacher/analytics/${exam._id}`, color: "text-blue-400 bg-blue-400/10" },
+                        { icon: <Users size={16} />, title: "Roster", path: `/teacher/attendance/${exam._id}`, color: "text-indigo-400 bg-indigo-400/10" },
+                        { icon: <Edit size={16} />, title: "Modify", path: `/teacher/exam/${exam._id}/questions`, color: "text-emerald-400 bg-emerald-400/10" }
+                      ].map((action, idx) => (
+                        <button
+                          key={idx}
+                          title={action.title}
+                          onClick={() => navigate(action.path)}
+                          className={`p-3 rounded-xl transition-all duration-300 hover:scale-110 active:scale-95 border border-transparent hover:border-current ${action.color}`}
+                        >
+                          {action.icon}
+                        </button>
+                      ))}
                     </div>
                   </td>
                 </tr>
@@ -127,14 +121,14 @@ export default function ManageExams() {
             </tbody>
           </table>
           {exams.length === 0 && (
-            <div className={`p-20 text-center ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
-              <div className="mb-4 flex justify-center opacity-20"><Plus size={48} /></div>
-              <p className="font-medium">No examinations created yet.</p>
+            <div className={`p-24 text-center ${darkMode ? 'text-gray-600' : 'text-gray-400'} font-['Orbitron']`}>
+              <div className="mb-6 flex justify-center opacity-10"><Plus size={64} /></div>
+              <p className="text-sm uppercase tracking-widest font-black">No Active Deployments</p>
               <button 
                 onClick={() => navigate('/teacher/create')}
-                className="mt-4 text-green-500 hover:underline text-sm font-bold"
+                className="mt-6 text-emerald-500 hover:text-emerald-400 text-xs font-black uppercase tracking-widest border-b border-emerald-500/20 pb-1 transition-all"
               >
-                Create your first exam now
+                Initialize Primary Node
               </button>
             </div>
           )}
@@ -142,4 +136,4 @@ export default function ManageExams() {
       </div>
     </div>
   );
-}
+}

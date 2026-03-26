@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import StudentTopbar from "../components/student/StudentTopbar";
 import ChatButton from "../components/student/ChatButton";
-import StudentSidebar from "../components/layout/StudentSiderbar";
+import StudentSidebar from "../components/layout/StudentSidebar";
 
 export default function StudentLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

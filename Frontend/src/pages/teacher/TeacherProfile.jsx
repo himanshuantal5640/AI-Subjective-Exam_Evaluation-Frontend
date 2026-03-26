@@ -67,32 +67,39 @@ export default function TeacherProfile() {
   };
 
   return (
-    <div className="flex justify-center p-6 min-h-screen">
+    <div className="flex justify-center p-6 min-h-screen animate-in fade-in duration-700">
       <div className={`w-full max-w-2xl ${
-        darkMode ? 'bg-[#07100a] border-green-500/10 shadow-2xl text-white' : 'bg-white border-gray-200 shadow-xl text-gray-800'
-      } border rounded-3xl p-8 transition-all duration-300`}>
+        darkMode ? 'bg-[#08150f]/80 border-emerald-500/10 shadow-2xl text-white' : 'bg-white border-gray-200 shadow-xl text-gray-800'
+      } backdrop-blur-xl border rounded-[40px] p-10 transition-all duration-500 relative overflow-hidden group`}>
+        
+        {/* Animated Background Element */}
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all duration-700"></div>
 
-        <h2 className={`text-2xl font-semibold mb-8 ${darkMode ? 'text-green-400' : 'text-green-600'}`}>
-          Teacher Profile
-        </h2>
+        <div className="relative z-10 text-center mb-10">
+          <h2 className={`text-2xl font-black font-['Orbitron'] uppercase tracking-[4px] mb-2 ${darkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
+            Faculty Profile
+          </h2>
+          <div className="h-1 w-20 bg-emerald-500/20 mx-auto rounded-full"></div>
+        </div>
 
         {/* Profile Image */}
-        <div className="flex flex-col items-center mb-8 relative">
+        <div className="flex flex-col items-center mb-12 relative">
           <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-tr from-emerald-500 to-blue-500 rounded-full blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
             <img
               src={user.profileImage || "/avatar.png"}
               alt="profile"
-              className={`w-28 h-28 rounded-full object-cover border-4 ${
-                darkMode ? 'border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'border-green-100 shadow-md'
-              } transition-all duration-300`}
+              className={`relative w-32 h-32 rounded-full object-cover border-4 ${
+                darkMode ? 'border-[#0a2316] shadow-2xl' : 'border-white shadow-lg'
+              } transition-all duration-500 group-hover:scale-105`}
             />
 
             {editing && (
               <button
                 onClick={() => fileInputRef.current.click()}
-                className="absolute bottom-0 right-0 bg-green-500 p-2 rounded-full shadow-lg text-black hover:scale-110 transition"
+                className="absolute bottom-1 right-1 bg-emerald-500 p-3 rounded-2xl shadow-xl text-white hover:scale-110 transition-all border border-emerald-400/20 active:scale-95"
               >
-                <Camera size={16} />
+                <Camera size={18} />
               </button>
             )}
           </div>
@@ -103,75 +110,78 @@ export default function TeacherProfile() {
             onChange={handleImageUpload}
             className="hidden"
           />
-        </div>
-
-        {/* Name */}
-        <div className="mb-6">
-          <label className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-            Full Name
-          </label>
-
-          {editing ? (
-            <input
-              value={user.name || ""}
-              onChange={(e) =>
-                setUser({ ...user, name: e.target.value })
-              }
-              className={`w-full mt-2 p-3 rounded-xl ${
-                darkMode ? 'bg-[#0b1610] text-white border-green-500/20 focus:border-green-400' : 'bg-gray-50 text-gray-900 border-gray-200 focus:border-green-500'
-              } border outline-none transition`}
-            />
-          ) : (
-            <p className={`mt-2 font-medium text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              {user.name}
-            </p>
+          
+          {!editing && (
+             <div className="mt-6 font-['Orbitron']">
+                <h3 className={`text-xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>{user.name}</h3>
+                <p className="text-[10px] font-black uppercase tracking-[3px] text-emerald-500 mt-1 opacity-60">Authorized Faculty</p>
+             </div>
           )}
         </div>
 
-    {/* Email */}
-    <div className="mb-4">
-      <label className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-        Email Address
-      </label>
-      <p className={`mt-2 font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-        {user.email}
-      </p>
-    </div>
+        {/* Details Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 text-left font-['JetBrains_Mono']">
+           <div className={`p-6 rounded-[24px] border transition-all ${darkMode ? 'bg-black/20 border-white/5' : 'bg-gray-50 border-gray-100'}`}>
+              <label className={`text-[10px] font-bold uppercase tracking-[2px] ${darkMode ? 'text-gray-600' : 'text-gray-400'} mb-3 block`}>
+                User Identity
+              </label>
+              {editing ? (
+                <input
+                  value={user.name || ""}
+                  onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  className={`w-full p-2 bg-transparent border-b ${darkMode ? 'border-emerald-500/30 text-white' : 'border-emerald-500 text-gray-900'} outline-none`}
+                />
+              ) : (
+                <p className={`text-sm font-bold ${darkMode ? 'text-emerald-100' : 'text-gray-800'}`}>{user.name}</p>
+              )}
+           </div>
 
-    {/* Role */}
-    <div className="mb-8">
-      <label className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-        Official Role
-      </label>
-      <p className={`mt-2 font-black uppercase tracking-widest text-xs ${darkMode ? 'text-green-500/80' : 'text-green-600'}`}>
-        {user.role || 'Teacher'}
-      </p>
-    </div>
+           <div className={`p-6 rounded-[24px] border transition-all ${darkMode ? 'bg-black/20 border-white/5' : 'bg-gray-50 border-gray-100'}`}>
+              <label className={`text-[10px] font-bold uppercase tracking-[2px] ${darkMode ? 'text-gray-600' : 'text-gray-400'} mb-3 block`}>
+                Secure Mail
+              </label>
+              <p className={`text-sm font-bold ${darkMode ? 'text-emerald-100/60' : 'text-gray-600'}`}>{user.email}</p>
+           </div>
 
-        <div className="space-y-4">
+           <div className={`p-6 rounded-[24px] border transition-all ${darkMode ? 'bg-black/20 border-white/5' : 'bg-gray-50 border-gray-100'} md:col-span-2`}>
+              <div className="flex justify-between items-center">
+                 <div>
+                    <label className={`text-[10px] font-bold uppercase tracking-[2px] ${darkMode ? 'text-gray-600' : 'text-gray-400'} mb-3 block`}>
+                      Access Level
+                    </label>
+                    <p className="text-xs font-black text-emerald-500 uppercase tracking-widest">{user.role || 'TEACHER'}_CORE</p>
+                 </div>
+                 <div className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-[8px] font-black uppercase text-emerald-400">
+                    Encrypted Node
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4">
           {!editing ? (
             <button
               onClick={() => setEditing(true)}
-              className="w-full py-3 bg-gradient-to-r from-green-400 to-emerald-500 text-black rounded-xl font-bold hover:shadow-lg hover:shadow-green-500/20 transition-all active:scale-95"
+              className="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-[20px] font-bold text-xs uppercase tracking-[2px] transition-all shadow-xl shadow-emerald-600/10 active:scale-95 font-['Orbitron']"
             >
-              Update Profile
+              Modify Signature
             </button>
           ) : (
             <button
               onClick={handleSave}
-              className="w-full py-3 bg-gradient-to-r from-green-400 to-emerald-500 text-black rounded-xl font-bold hover:shadow-lg hover:shadow-green-500/20 transition-all active:scale-95"
+              className="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-[20px] font-bold text-xs uppercase tracking-[2px] transition-all shadow-xl shadow-emerald-600/10 active:scale-95 font-['Orbitron']"
             >
-              {loading ? "Saving..." : "Save Changes"}
+              {loading ? "Syncing..." : "Commit Changes"}
             </button>
           )}
 
           <button
             onClick={handleLogout}
-            className={`w-full py-3 ${
-              darkMode ? 'bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20' : 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
-            } rounded-xl font-semibold transition active:scale-95`}
+            className={`px-8 py-4 ${
+              darkMode ? 'bg-red-500/5 text-red-500 border border-red-500/10 hover:bg-red-500/10' : 'bg-red-50 text-red-600 border border-red-100 hover:bg-red-100'
+            } rounded-[20px] font-bold text-xs uppercase tracking-[2px] transition-all active:scale-95 font-['Orbitron']`}
           >
-            Logout session
+            Terminate Session
           </button>
         </div>
 
